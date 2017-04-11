@@ -8,24 +8,23 @@ var GITHUB_USER = githubInfo.user;
 var GITHUB_TOKEN = githubInfo.token;
 
 
-function cb(err, response, body) {
-  var bodyParsed = JSON.parse(body); // modified funtion to parse the body
-  bodyParsed.forEach(function (obj) {
-    console.log(obj.avatar_url);
-  });
-}
-
-
-function downloadImageByURL(url, filePath) {
-  request.get(url)
+function downloadImageByURL(imageURL, filePath) {
+  request.get(imageURL)
          .on('error', function (err) {
            throw err;
          })
          .pipe(fs.createWriteStream(filePath));
 }
 
-// call function with parameters to test
-downloadImageByURL("http://avatars2.githubusercontent.com/u/2741?v=3&s=466", "avatars/kvirani.jpg");
+
+function cb(err, response, body) {
+  var bodyParsed = JSON.parse(body);
+  bodyParsed.forEach(function (obj) {
+    var filePath = 'avatars/' + obj.login + '.jpg';
+    var imageURL = obj.avatar_url;
+    downloadImageByURL(imageURL, filePath);
+  });
+}
 
 
 function getRepoContributors(repoOwner, repoName, cb) {
