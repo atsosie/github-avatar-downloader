@@ -4,8 +4,14 @@ var fs = require('fs');
 
 var GITHUB_USER = githubInfo.user;
 var GITHUB_TOKEN = githubInfo.token;
+
 var repoOwner = process.argv[2];
 var repoName = process.argv[3];
+
+if (process.argv.length !== 4) {
+  console.log("Usage: node download_avatars.js <repo owner> <repo name>");
+  process.exit(1);
+}
 
 
 function downloadImageByURL(imageURL, filePath) {
