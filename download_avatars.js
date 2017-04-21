@@ -48,4 +48,3 @@ function getRepoContributors(repoOwner, repoName, cb) {
 }
 
 getRepoContributors(repoOwner, repoName, cb);
-//getRepoContributors("jquery", "jquery", cb);
